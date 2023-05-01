@@ -2,6 +2,8 @@
 
 A small application that can be used to change your terminal output colors
 
+This application is configured to run on normal Bash terminal
+
 # Build instructions
 
 The `Makefile` is provided, simply call `make cterm` or `make` in the current directory. 
@@ -16,7 +18,7 @@ The program is also aliased to `ct`, so calling `ct -h` would also work.
 
 ### Changing color of current terminal session
 
-To obtain a change in colors in the current session, you can supply one the following list of options to the call `ct <OPTION>`
+To obtain a change in colors in the current session, you can supply one the following list of osptions to the call `ct <OPTION>`
 
 List of options
   * -b, --black
@@ -29,7 +31,7 @@ List of options
   * -w, --white
   * -R, --reset
 
-### Changing color of a specific line of text
+### Changing color for a specific line of text
 
 To obtain a line with a specific color output, you can type `ct <OPTION> [ARGUMENTS]...`
 
