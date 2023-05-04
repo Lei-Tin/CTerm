@@ -1,0 +1,24 @@
+#!/bin/zsh
+
+if ./ct "$@" > /dev/null
+then
+    if [ $# -eq 1 ] && ! [ "$1" = "-h" -o "$1" = "--help" ]
+    then
+        if [ "$1" = "-R" -o "$1" = "--reset" ]
+        then
+            autoload -U colors && colors
+            PS1=${PS1#%{*%}}
+        else
+            autoload -U colors && colors
+            color=`./ct "$@"`
+            PS1=${PS1#%{*%}}
+            PS1="%{$fg[${color}]%}${PS1}"
+        fi
+    else
+        ./ct "$@"
+    fi
+else
+    ./ct "$@"
+fi
+
+

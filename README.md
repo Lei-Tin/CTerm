@@ -10,9 +10,9 @@ The `Makefile` is provided, simply call `make cterm` or `make` in the current di
 
 The `Makefile` is configured to work on Bash by default. 
 
-If you are using zsh (default shell on Mac), please compile with `make cterm_zsh`.
-
 After compiling, you can copy the executables `cterm` and `ct` into `/usr/bin` or `/bin` or any other location in your PATH for easy execution. 
+
+ZSH Shell usage instructions can be found a little bit further down. 
 
 # Usage
 
@@ -36,6 +36,14 @@ List of options
   * -c, --cyan
   * -w, --white
   * -R, --reset
+
+# ZSH Shell usage
+
+Please first compile the program with `make cterm_zsh`. 
+
+Then, please call the following command `source cterm_zsh <option> [ARGUMENTS]`. 
+
+This now works identically as to `./ct <option> [ARGUMENTS]`.
 
 ### Changing color for a specific line of text
 

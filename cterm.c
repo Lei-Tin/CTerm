@@ -2,8 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
 
 #define MAX_ARG_LENGTH 128
 #define MAX_ARG_COUNT 16
@@ -188,76 +186,12 @@ int set_color_zsh(char *color) {
             strcpy(c, "white");
             break;
         case 9:
-            printf(c, "reset");
+            strcpy(c, "reset");
             break;
     }
 
-    // We need two children to setup things
-    // The first one for autoload color
-    int pid_1 = fork();
-    if (pid_1 < 0) {
-        perror("fork");
-        // Quitting the application and using error code -2 to signal fork errors
-        exit(-2);
-    } else if (pid_1 == 0) {
-        if (execlp("autoload", "autoload", "-U", "colors", "&&", "colors", NULL) != 0) {
-            // Using -3 to signal execlp errors
-            perror("execlp");
-            exit(-3);
-        }
-
-        exit(0);
-    }
-
-    int wstatus1;
-    waitpid(pid_1, &wstatus1, 0);
-
-    if (!(WIFEXITED(wstatus1) && WEXITSTATUS(wstatus1) == 0)) {
-        exit(-3);
-    }
-
-    int pid_2 = fork();
-
-    if (pid_2 < 0) {
-        perror("fork");
-        exit(-2);
-    } else if (pid_2 == 0) {
-        if (strcmp(c, "") == 0) {
-            // If we are resetting colors
-            
-            // This is a command to reset PS1 to remove any color related strings in it
-            if (execlp("PS1=${PS1#%{*%}}", "PS1=${PS1#%{*%}}", NULL) != 0) {
-                perror("execlp");
-                exit(-3);
-            }
-        } else {
-            // Setting colors requires this syntax:
-            // %{$fg[red]%} + Original $PS1
-            int length = strlen("PS1=\"%{$fg[]%}${PS1}\"") + strlen(c) + 1;
-
-            char *cmd = malloc(sizeof(char) * length);
-            memset(cmd, 0, sizeof(char) * length);
-
-            // Building up the cmd string
-            strcpy(cmd, "PS1=\"%{$fg[");
-            strcat(cmd, c);
-            strcat(cmd, "]%}${PS1}\"");
-
-            if (execlp(cmd, cmd, NULL) != 0) {
-                perror("execlp");
-                exit(-3);
-            }
-        }
-
-        exit(0);
-    }
-
-    int wstatus2;
-    waitpid(pid_2, &wstatus2, 0);
-
-    if (!(WIFEXITED(wstatus2) && WEXITSTATUS(wstatus2) == 0)) {
-        exit(-3);
-    }
+    // Print this for the ZSH Script to use
+    printf("%s", c);
 
     return 0;
 }
