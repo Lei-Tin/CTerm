@@ -8,6 +8,12 @@ This application is configured to run on normal Bash terminal
 
 The `Makefile` is provided, simply call `make cterm` or `make` in the current directory. 
 
+The `Makefile` is configured to work on Bash by default. 
+
+If you are using zsh (default shell on Mac), please compile with `make cterm_zsh`.
+
+After compiling, you can copy the executables `cterm` and `ct` into `/usr/bin` or `/bin` or any other location in your PATH for easy execution. 
+
 # Usage
 
 Run `cterm --help` or `cterm -h` to obtain the manual. 
