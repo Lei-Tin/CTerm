@@ -45,6 +45,8 @@ Then, please call the following command `source cterm_zsh <option> [ARGUMENTS]`.
 
 This now works identically as to `./ct <option> [ARGUMENTS]`.
 
+However, as of the current version, you cannot add the script into the PATH and run this anywhere if you are using this application for ZSH Shell. 
+
 ### Changing color for a specific line of text
 
 To obtain a line with a specific color output, you can type `ct <OPTION> [ARGUMENTS]...`
